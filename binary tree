@@ -1,0 +1,78 @@
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+struct Node 
+{
+    int data;
+    Node *left, *right;
+};
+
+Node* create() 
+{
+    Node* temp = new Node(); 
+    int choice;
+    cout << "Press 0 to exit" << endl;
+    cout << "Press 1 for new node" << endl;
+    cout << "Enter your choice: ";
+    cin >> choice;
+
+    if (choice == 0) 
+    {
+        return nullptr; 
+    } 
+    else 
+    {
+        int data;
+        cout << "Enter the data: ";
+        cin >> data;
+        temp->data = data;
+        cout << "Enter the left child of " << data << endl;
+        temp->left = create(); 
+        cout << "Enter the right child of " << data << endl;
+        temp->right = create(); 
+        return temp; 
+    }
+}
+
+void printInOrder(Node* root) 
+{
+    if (root == nullptr) 
+    {
+        return;
+    }
+    printInOrder(root->left);
+    cout << root->data << " ";
+    printInOrder(root->right);
+}
+
+void printPreOrder(Node* root) {
+    if (root == nullptr) 
+    {
+        return;
+    }
+    cout << root->data << " ";
+    printPreOrder(root->left);
+    printPreOrder(root->right);
+}
+
+void printPostOrder(Node* root) {
+    if (root == nullptr) 
+    {
+        return;
+    }
+    printPostOrder(root->left);
+    printPostOrder(root->right);
+    cout << root->data << " ";
+}
+
+int main() {
+    Node* root = nullptr; // Initialize the root node
+    root = create(); // Create the tree
+    cout << "\nInorder Traversal: ";
+    printInOrder(root);
+    cout << "\nPreorder Traversal: ";
+    printPreOrder(root);
+    cout << "\nPostorder Traversal: ";
+    printPostOrder(root);
+    return 0;
+}
